@@ -73,7 +73,7 @@ public class AddingQuestions extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                addAndGoToTheNextQuestion();
             }
         });
     }
@@ -115,6 +115,8 @@ public class AddingQuestions extends AppCompatActivity {
         add.setVisibility(View.VISIBLE);
     }
     public void addAndGoToTheNextQuestion(){
-
+        currentQuestionIndex++;
+        showQuestion(questions[currentQuestionIndex]);
+        add.setVisibility(View.INVISIBLE);
     }
 }
