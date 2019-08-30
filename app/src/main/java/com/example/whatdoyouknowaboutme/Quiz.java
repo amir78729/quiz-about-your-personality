@@ -21,7 +21,7 @@ public class Quiz extends AppCompatActivity {
     private Button answer3;
     private Button answer4;
     private Button[] myButtons;
-    private ImageButton add;
+    private Button nextQuestion;
 //    private Questions[] questions = QuestionBank.getQuestionsForYou();
 //    private String[]    questionTitles = QuestionBank.getQuestionsForFriends(getIntent().getStringExtra("yourName"));
     private Questions[] questions;
@@ -32,7 +32,7 @@ public class Quiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
+        Log.d("PRESS", "QUIZ BEGUN");
         TextView name = findViewById  (R.id.friend_name);
         questionNumbers = findViewById(R.id.friend_numberOfQuestionForYou);
         question = findViewById       (R.id.friend_questionText);
@@ -40,7 +40,7 @@ public class Quiz extends AppCompatActivity {
         answer2 = findViewById        (R.id.friend_answerNumber2);
         answer3 = findViewById        (R.id.friend_answerNumber3);
         answer4 = findViewById        (R.id.friend_answerNumber4);
-        add = findViewById            (R.id.friend_addQuestion);
+        nextQuestion = findViewById            (R.id.friend_addQuestion);
         myButtons = new Button[]{answer1 ,answer2 ,answer3, answer4};
 
         questions = QuestionBank.getQuestionsForYou();
@@ -76,11 +76,22 @@ public class Quiz extends AppCompatActivity {
                 press(currentQuestionIndex, 4);
             }
         });
+        nextQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentQuestionIndex < questions.length - 1)
+                    next();
+                else {// game is over
+
+                }
+            }
+        });
 //
     }
 //
     @SuppressLint("SetTextI18n")
     public void showQuestion(int  currentQuestionIndex){
+        Log.d("PRESS", "Q#" + (currentQuestionIndex + 1) + "'s correct answer : " + yourAnswersToTheQuestions[currentQuestionIndex]  );
         questionNumbers.setText((currentQuestionIndex+1) + " / " + questions.length);
         question.setText(questionTitles[currentQuestionIndex]);
         answer1.setText(questions[currentQuestionIndex].getAnswer1());
@@ -106,34 +117,28 @@ public class Quiz extends AppCompatActivity {
     }
 
     @SuppressLint("ResourceAsColor")
-    public void press(int currentQuestionIndex, int correctAnswer){
-//        for (int i = 0; i < 4; i++){
-//            if (correctAnswer - 1 == i){
-////                myButtons[i].setBackgroundColor(R.color.green);
-////                myButtons[i].setTextColor(R.color.white);
-//                myButtons[i].setBackgroundColor(Color.GREEN);
-//                myButtons[i].setTextColor(Color.WHITE);
-//
-//            }else{
-//                myButtons[i].setBackgroundColor(Color.RED);
-//                myButtons[i].setTextColor(Color.WHITE);
-//            }
-//            myButtons[i].setEnabled(false);
-//        }
-        if (correctAnswer == yourAnswersToTheQuestions[currentQuestionIndex]){
+    public void press(int currentQuestionIndex, int friendsAnswer){
+        if (friendsAnswer == yourAnswersToTheQuestions[currentQuestionIndex]){
             Toast.makeText(Quiz.this , "True!" , Toast.LENGTH_SHORT).show();
-
+            myButtons[friendsAnswer - 1].setBackgroundColor(Color.GREEN);
         }
         else {
             Toast.makeText(Quiz.this , "False!" , Toast.LENGTH_SHORT).show();
+            myButtons[friendsAnswer - 1].setBackgroundColor(Color.RED);
+            myButtons[friendsAnswer - 1].setTextColor(Color.WHITE);
+            myButtons[yourAnswersToTheQuestions[currentQuestionIndex] - 1].setBackgroundColor(Color.GREEN);
         }
-//        Log.d("PRESS", "your friend's answer for Q#" + (currentQuestionIndex + 1) + " : " + correctAnswer - 1 == i);
-        add.setVisibility(View.VISIBLE);
+        Log.d("PRESS", "your friend's answer for Q#" + (currentQuestionIndex + 1) + " : " + friendsAnswer + " -> " + (friendsAnswer == yourAnswersToTheQuestions[currentQuestionIndex]));
+        nextQuestion.setVisibility(View.VISIBLE);
+        answer1.setEnabled(false);
+        answer2.setEnabled(false);
+        answer3.setEnabled(false);
+        answer4.setEnabled(false);
     }
-//    public void addAndGoToTheNextQuestion(){
-//        currentQuestionIndex++;
-//        showQuestion(currentQuestionIndex);
-//        add.setVisibility(View.INVISIBLE);
-//    }
+    public void next(){
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+        nextQuestion.setVisibility(View.INVISIBLE);
+    }
 
 }
