@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.Objects;
 
 public class AddingQuestions extends AppCompatActivity {
+    private TextView questionNumbers;
     private TextView question;
     private Button answer1;
     private Button answer2;
@@ -22,11 +23,7 @@ public class AddingQuestions extends AppCompatActivity {
     private Button answer4;
     private Button[] myButtons;
     private ImageButton add;
-    private Questions[] questions = new Questions[]{
-            new Questions("What is your favourite drink?","milk","tea", "coffee", "juice", -1),
-            new Questions("your favourite movie genre?","comedy","romantic", "action", "science fiction", -1),
-            new Questions("your favourite superhero?","spider-man","batman", "superman", "iron-man", -1),
-    };
+    private Questions[] questions = QuestionBank.getQuestionsForYou();
     int currentQuestionIndex = 0;
 
     @Override
@@ -35,6 +32,7 @@ public class AddingQuestions extends AppCompatActivity {
         setContentView(R.layout.activity_adding_questions);
 
         TextView name = findViewById(R.id.name);
+        questionNumbers = findViewById(R.id.numberOfQuestionForYou);
         question = findViewById(R.id.questionText);
         answer1 = findViewById(R.id.answerNumber1);
         answer2 = findViewById(R.id.answerNumber2);
@@ -81,14 +79,20 @@ public class AddingQuestions extends AppCompatActivity {
                 else {// here we have to go to another activity
                     Intent intent = new Intent(AddingQuestions.this , YourFriendsPage.class);
                     intent.putExtra("yourName" ,yourName);
-//                    intent.putExtra("questions", questions);
+                    int[] correctAnswers = new int[questions.length];
+                    for (int i = 0 ; i < correctAnswers.length ; i++){
+                        correctAnswers[i] = questions[i].getNumberOfTheCorrectAnswer();
+                    }
+                    intent.putExtra("correctAnswers", correctAnswers);
                     startActivity(intent);
                 }
             }
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void showQuestion(Questions q){
+        questionNumbers.setText((currentQuestionIndex+1) + " / " + questions.length);
         question.setText(q.getQuestionTitle());
         answer1.setText(q.getAnswer1());
         answer2.setText(q.getAnswer2());
@@ -100,10 +104,10 @@ public class AddingQuestions extends AppCompatActivity {
         answer3.setTextColor(Color.BLACK);
         answer4.setTextColor(Color.BLACK);
 
-        answer1.setBackgroundColor(Color.TRANSPARENT);
-        answer2.setBackgroundColor(Color.TRANSPARENT);
-        answer3.setBackgroundColor(Color.TRANSPARENT);
-        answer4.setBackgroundColor(Color.TRANSPARENT);
+        answer1.setBackgroundColor(Color.WHITE);
+        answer2.setBackgroundColor(Color.WHITE);
+        answer3.setBackgroundColor(Color.WHITE);
+        answer4.setBackgroundColor(Color.WHITE);
 
     }
     @SuppressLint("ResourceAsColor")
@@ -117,7 +121,7 @@ public class AddingQuestions extends AppCompatActivity {
                 myButtons[i].setTextColor(Color.WHITE);
 
             }else{
-                myButtons[i].setBackgroundColor(Color.TRANSPARENT);
+                myButtons[i].setBackgroundColor(Color.WHITE);
                 myButtons[i].setTextColor(Color.BLACK);
             }
         }
