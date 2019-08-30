@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".YourFriendsPage"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:text="@string/enter_your_friends_name"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/friendsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:fontFamily="casual"
+        android:hint="@string/your_friend_s_name"
+        android:inputType="" />
+
+    <Button
+        android:id="@+id/startTheQuiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="casual"
+        android:text="@string/let_s_start"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
+
+
+</LinearLayout>

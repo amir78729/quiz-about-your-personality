@@ -3,6 +3,7 @@ package com.example.whatdoyouknowaboutme;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,8 +43,9 @@ public class AddingQuestions extends AppCompatActivity {
         add = findViewById(R.id.addQuestion);
         myButtons = new Button[]{answer1 ,answer2 ,answer3, answer4};
 
-        String yourName = "Dear " + Objects.requireNonNull(getIntent().getStringExtra("yourName")).concat(",");
-        name.setText(yourName);
+        final String yourName = getIntent().getStringExtra("yourName");
+        String shoeYourName = "Dear " + yourName + ",";
+        name.setText(shoeYourName);
 
         showQuestion(questions[currentQuestionIndex]);
 
@@ -76,6 +78,12 @@ public class AddingQuestions extends AppCompatActivity {
             public void onClick(View view) {
                 if (currentQuestionIndex < questions.length - 1)
                     addAndGoToTheNextQuestion();
+                else {// here we have to go to another activity
+                    Intent intent = new Intent(AddingQuestions.this , YourFriendsPage.class);
+                    intent.putExtra("yourName" ,yourName);
+//                    intent.putExtra("questions", questions);
+                    startActivity(intent);
+                }
             }
         });
     }
