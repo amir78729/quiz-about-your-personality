@@ -23,7 +23,8 @@ public class AddingQuestions extends AppCompatActivity {
     private ImageButton add;
     private Questions[] questions = new Questions[]{
             new Questions("What is your favourite drink?","milk","tea", "coffee", "juice", -1),
-            new Questions("What is your favourite movie genre?","comedy","romantic", "action", "science fiction", -1),
+            new Questions("your favourite movie genre?","comedy","romantic", "action", "science fiction", -1),
+            new Questions("your favourite superhero?","spider-man","batman", "superman", "iron-man", -1),
     };
     int currentQuestionIndex = 0;
 
@@ -73,7 +74,8 @@ public class AddingQuestions extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addAndGoToTheNextQuestion();
+                if (currentQuestionIndex < questions.length - 1)
+                    addAndGoToTheNextQuestion();
             }
         });
     }
