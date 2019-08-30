@@ -2,19 +2,25 @@ package com.example.whatdoyouknowaboutme;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Objects;
 
 public class AddingQuestions extends AppCompatActivity {
-    private TextView name;
     private TextView question;
     private Button answer1;
     private Button answer2;
     private Button answer3;
     private Button answer4;
+    private Button[] myButtons;
+    private ImageButton add;
     private Questions[] questions = new Questions[]{
             new Questions("What is your favourite drink?","milk","tea", "coffee", "juice", -1),
             new Questions("What is your favourite movie genre?","comedy","romantic", "action", "science fiction", -1),
@@ -26,18 +32,50 @@ public class AddingQuestions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_questions);
 
-        name = findViewById(R.id.name);
+        TextView name = findViewById(R.id.name);
         question = findViewById(R.id.questionText);
         answer1 = findViewById(R.id.answerNumber1);
         answer2 = findViewById(R.id.answerNumber2);
         answer3 = findViewById(R.id.answerNumber3);
         answer4 = findViewById(R.id.answerNumber4);
+        add = findViewById(R.id.addQuestion);
+        myButtons = new Button[]{answer1 ,answer2 ,answer3, answer4};
 
-        String yourName = Objects.requireNonNull(getIntent().getStringExtra("yourName")).concat(",");
+        String yourName = "Dear " + Objects.requireNonNull(getIntent().getStringExtra("yourName")).concat(",");
         name.setText(yourName);
 
         showQuestion(questions[currentQuestionIndex]);
 
+        answer1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                press(currentQuestionIndex, 1);
+            }
+        });
+        answer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                press(currentQuestionIndex, 2);
+            }
+        });
+        answer3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                press(currentQuestionIndex, 3);
+            }
+        });
+        answer4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                press(currentQuestionIndex, 4);
+            }
+        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     public void showQuestion(Questions q){
@@ -46,5 +84,37 @@ public class AddingQuestions extends AppCompatActivity {
         answer2.setText(q.getAnswer2());
         answer3.setText(q.getAnswer3());
         answer4.setText(q.getAnswer4());
+
+        answer1.setTextColor(Color.BLACK);
+        answer2.setTextColor(Color.BLACK);
+        answer3.setTextColor(Color.BLACK);
+        answer4.setTextColor(Color.BLACK);
+
+        answer1.setBackgroundColor(Color.TRANSPARENT);
+        answer2.setBackgroundColor(Color.TRANSPARENT);
+        answer3.setBackgroundColor(Color.TRANSPARENT);
+        answer4.setBackgroundColor(Color.TRANSPARENT);
+
+    }
+    @SuppressLint("ResourceAsColor")
+    public void press(int currentQuestionIndex, int correctAnswer){
+        questions[currentQuestionIndex].setNumberOfTheCorrectAnswer(correctAnswer);// set the correct answer
+        for (int i = 0; i < 4; i++){
+            if (correctAnswer - 1 == i){
+//                myButtons[i].setBackgroundColor(R.color.green);
+//                myButtons[i].setTextColor(R.color.white);
+                myButtons[i].setBackgroundColor(Color.BLACK);
+                myButtons[i].setTextColor(Color.WHITE);
+
+            }else{
+                myButtons[i].setBackgroundColor(Color.TRANSPARENT);
+                myButtons[i].setTextColor(Color.BLACK);
+            }
+        }
+        Log.d("PRESS", "correct answer for Q#" + (currentQuestionIndex + 1) + " : " + questions[currentQuestionIndex].getNumberOfTheCorrectAnswer());
+        add.setVisibility(View.VISIBLE);
+    }
+    public void addAndGoToTheNextQuestion(){
+
     }
 }
