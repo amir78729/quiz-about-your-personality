@@ -92,6 +92,7 @@ public class Quiz extends AppCompatActivity {
                     Intent intent = new Intent(Quiz.this , Results.class);
                     intent.putExtra("yourName" ,yourName);
                     intent.putExtra("friendsName" ,friendsName);
+                    intent.putExtra("correctAnswers", ""+correct);
                     startActivity(intent);
                 }
             }
