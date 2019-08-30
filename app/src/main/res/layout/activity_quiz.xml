@@ -77,12 +77,27 @@
             android:fontFamily="casual" />
 
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/correctAnswers"
+        android:fontFamily="casual"
+        android:text="@string/correct_answers_0"
+        android:textColor="@color/green"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/wrongAnswers"
+        android:fontFamily="casual"
+        android:text="@string/wrong_answers_0"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/friend_addQuestion"
         android:layout_width="108dp"
         android:layout_height="35dp"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:background="@color/colorPrimaryDark"
         android:fontFamily="casual"
         android:text="@string/next_question"
