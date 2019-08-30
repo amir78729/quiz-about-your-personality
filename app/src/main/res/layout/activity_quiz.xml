@@ -46,14 +46,16 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"
-            android:fontFamily="casual" />
+            android:fontFamily="casual"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/friend_answerNumber2"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"
-            android:fontFamily="casual" />
+            android:fontFamily="casual"
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
 
@@ -67,14 +69,16 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"
-            android:fontFamily="casual" />
+            android:fontFamily="casual"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/friend_answerNumber4"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"
-            android:fontFamily="casual" />
+            android:fontFamily="casual"
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
     <TextView
