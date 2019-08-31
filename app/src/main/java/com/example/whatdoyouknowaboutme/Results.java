@@ -16,13 +16,26 @@ public class Results extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         TextView textView = findViewById(R.id.result);
-        Button button = findViewById(R.id.playAgain);
+        Button playAgain = findViewById(R.id.playAgain);
         int correctAnswers = Integer.parseInt(getIntent().getStringExtra("correctAnswers"));
         textView.setText(correctAnswers + "/" + QuestionBank.getQuestionsForYou().length);
-        button.setOnClickListener(new View.OnClickListener() {
+        playAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Results.this , MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button = findViewById(R.id.playWithAnotherFriend);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Results.this , YourFriendsPage.class);
+                Bundle bundle = getIntent().getExtras();
+                assert bundle != null;
+                intent.putExtra("yourName", bundle.getString("yourName"));
+                intent.putExtra("correctAnswers", bundle.getIntArray("correctAnswers"));
                 startActivity(intent);
             }
         });

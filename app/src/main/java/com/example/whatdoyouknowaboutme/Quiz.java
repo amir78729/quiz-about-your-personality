@@ -36,6 +36,7 @@ public class Quiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        final Bundle bundle = getIntent().getExtras();
         Log.d("PRESS", "QUIZ BEGUN");
         TextView name = findViewById(R.id.friend_name);
         questionNumbers = findViewById(R.id.friend_numberOfQuestionForYou);
@@ -90,8 +91,9 @@ public class Quiz extends AppCompatActivity {
                     next();
                 else {// game is over
                     Intent intent = new Intent(Quiz.this , Results.class);
-                    intent.putExtra("yourName" ,yourName);
-                    intent.putExtra("friendsName" ,friendsName);
+//                    intent.putExtra("yourName" ,yourName);
+//                    intent.putExtra("friendsName" ,friendsName);
+                    intent.putExtra("bundle" , bundle);
                     intent.putExtra("correctAnswers", ""+correct);
                     startActivity(intent);
                 }
