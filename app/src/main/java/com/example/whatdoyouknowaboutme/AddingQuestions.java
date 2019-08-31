@@ -83,7 +83,6 @@ public class AddingQuestions extends AppCompatActivity {
                     for (int i = 0 ; i < correctAnswers.length ; i++){
                         correctAnswers[i] = questions[i].getNumberOfTheCorrectAnswer();
                     }
-//                    intent.putExtra("correctAnswers", correctAnswers);
                     User user = new User(yourName , correctAnswers);
                     Log.d("PRESS", "user created");
                     UsersBank.AddAUser(user);
@@ -98,23 +97,7 @@ public class AddingQuestions extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void showQuestion(Questions q){
-        questionNumbers.setText((currentQuestionIndex+1) + " / " + questions.length);
-        question.setText(q.getQuestionTitle());
-        answer1.setText(q.getAnswer1());
-        answer2.setText(q.getAnswer2());
-        answer3.setText(q.getAnswer3());
-        answer4.setText(q.getAnswer4());
-
-        answer1.setTextColor(Color.rgb(53,105,150));
-        answer2.setTextColor(Color.rgb(53,105,150));
-        answer3.setTextColor(Color.rgb(53,105,150));
-        answer4.setTextColor(Color.rgb(53,105,150));
-
-        answer1.setBackgroundColor(Color.WHITE);
-        answer2.setBackgroundColor(Color.WHITE);
-        answer3.setBackgroundColor(Color.WHITE);
-        answer4.setBackgroundColor(Color.WHITE);
-
+        refreshTheScreen(q);
     }
     @SuppressLint("ResourceAsColor")
     public void press(int currentQuestionIndex, int correctAnswer){
@@ -136,5 +119,19 @@ public class AddingQuestions extends AppCompatActivity {
         currentQuestionIndex++;
         showQuestion(questions[currentQuestionIndex]);
         add.setVisibility(View.INVISIBLE);
+    }
+    @SuppressLint("SetTextI18n")
+    public void refreshTheScreen(Questions q){
+        questionNumbers.setText((currentQuestionIndex+1) + " / " + questions.length);
+        question.setText(q.getQuestionTitle());
+        answer1.setText(q.getAnswer1());
+        answer2.setText(q.getAnswer2());
+        answer3.setText(q.getAnswer3());
+        answer4.setText(q.getAnswer4());
+        for (Button b : myButtons){
+            b.setTextColor(Color.rgb(53,105,150));
+            b.setBackgroundColor(Color.WHITE);
+            b.setEnabled(true);
+        }
     }
 }
