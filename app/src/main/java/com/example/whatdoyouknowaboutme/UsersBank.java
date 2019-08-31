@@ -3,17 +3,14 @@ package com.example.whatdoyouknowaboutme;
 import java.util.HashMap;
 
 public class UsersBank {
-    private static HashMap<String, int[]> users;
+    private static HashMap<String, int[]> users = new HashMap<>();
 
-    public UsersBank() {
-        users = new HashMap<>();
-    }
 
-    public static void AddAUser(User user){
+    static void AddAUser(User user){
         users.put(user.getName(), user.getCorrectAnswers());
     }
 
-    public static int[] getAUserAnswers(String name){
+    static int[] getAUserAnswers(String name){
         return users.get(name);
     }
 
@@ -22,6 +19,6 @@ public class UsersBank {
     }
 
     public void setUsers(HashMap<String, int[]> users) {
-        this.users = users;
+        UsersBank.users = users;
     }
 }

@@ -84,7 +84,11 @@ public class AddingQuestions extends AppCompatActivity {
                         correctAnswers[i] = questions[i].getNumberOfTheCorrectAnswer();
                     }
 //                    intent.putExtra("correctAnswers", correctAnswers);
-                    UsersBank.AddAUser(new User(yourName , correctAnswers));
+                    User user = new User(yourName , correctAnswers);
+                    Log.d("PRESS", "user created");
+                    UsersBank.AddAUser(user);
+                    Log.d("PRESS", "user added to the user bank");
+
                     startActivity(intent);
                 }
             }
