@@ -89,11 +89,7 @@ public class Quiz extends AppCompatActivity {
                 if (currentQuestionIndex < questions.length - 1)
                     next();
                 else {// game is over
-                    Intent intent = new Intent(Quiz.this , Results.class);
-                    intent.putExtra("bundle" , bundle);
-                    intent.putExtra("correctAnswers", ""+correct);
-                    startActivity(intent);
-                    finish();
+                    gameOver(bundle);
                 }
             }
         });
@@ -104,56 +100,65 @@ public class Quiz extends AppCompatActivity {
     public void showQuestion(int  currentQuestionIndex){
         Log.d("PRESS", "Q#" + (currentQuestionIndex + 1) + "'s correct answer : " + yourAnswersToTheQuestions[currentQuestionIndex]  );
         questionNumbers.setText((currentQuestionIndex+1) + " / " + questions.length);
-        question.setText(questionTitles[currentQuestionIndex]);
-        answer1.setText(questions[currentQuestionIndex].getAnswer1());
-        answer2.setText(questions[currentQuestionIndex].getAnswer2());
-        answer3.setText(questions[currentQuestionIndex].getAnswer3());
-        answer4.setText(questions[currentQuestionIndex].getAnswer4());
-
-        answer1.setTextColor(Color.BLACK);
-        answer2.setTextColor(Color.BLACK);
-        answer3.setTextColor(Color.BLACK);
-        answer4.setTextColor(Color.BLACK);
-
-        answer1.setBackgroundColor(Color.WHITE);
-        answer2.setBackgroundColor(Color.WHITE);
-        answer3.setBackgroundColor(Color.WHITE);
-        answer4.setBackgroundColor(Color.WHITE);
-
-        answer1.setEnabled(true);
-        answer2.setEnabled(true);
-        answer3.setEnabled(true);
-        answer4.setEnabled(true);
+        refreshTheScreen();
 
     }
 
     @SuppressLint({"ResourceAsColor", "SetTextI18n"})
     public void press(int currentQuestionIndex, int friendsAnswer){
         if (friendsAnswer == yourAnswersToTheQuestions[currentQuestionIndex]){
-            Toast.makeText(Quiz.this , "True!" , Toast.LENGTH_SHORT).show();
-            myButtons[friendsAnswer - 1].setBackgroundColor(Color.GREEN);
-            correct++;
-            correctAnswers.setText("correct answers: " + correct);
+            answerWasTrue(friendsAnswer);
         }
         else {
-            Toast.makeText(Quiz.this , "False!" , Toast.LENGTH_SHORT).show();
-            myButtons[friendsAnswer - 1].setBackgroundColor(Color.RED);
-            myButtons[friendsAnswer - 1].setTextColor(Color.WHITE);
-            myButtons[yourAnswersToTheQuestions[currentQuestionIndex] - 1].setBackgroundColor(Color.GREEN);
-            wrong++;
-            wrongAnswers.setText("wrong answers: " + wrong);
+            answerWasFalse(friendsAnswer);
         }
         Log.d("PRESS", "your friend's answer for Q#" + (currentQuestionIndex + 1) + " : " + friendsAnswer + " -> " + (friendsAnswer == yourAnswersToTheQuestions[currentQuestionIndex]));
         nextQuestion.setVisibility(View.VISIBLE);
-        answer1.setEnabled(false);
-        answer2.setEnabled(false);
-        answer3.setEnabled(false);
-        answer4.setEnabled(false);
+        for (Button b : myButtons){
+            b.setEnabled(false);
+        }
     }
     public void next(){
         currentQuestionIndex++;
         showQuestion(currentQuestionIndex);
         nextQuestion.setVisibility(View.INVISIBLE);
     }
+    public void refreshTheScreen(){
+        question.setText(questionTitles[currentQuestionIndex]);
+        answer1.setText(questions[currentQuestionIndex].getAnswer1());
+        answer2.setText(questions[currentQuestionIndex].getAnswer2());
+        answer3.setText(questions[currentQuestionIndex].getAnswer3());
+        answer4.setText(questions[currentQuestionIndex].getAnswer4());
+        for (Button b : myButtons){
+            b.setTextColor(Color.rgb(53,105,150));
+            b.setBackgroundColor(Color.WHITE);
+            b.setEnabled(true);
+        }
+    }
+    @SuppressLint("SetTextI18n")
+    public void answerWasTrue(int friendsAnswer){
+        Toast.makeText(Quiz.this , "True!" , Toast.LENGTH_SHORT).show();
+        myButtons[friendsAnswer - 1].setBackgroundColor(Color.rgb(0,95,0));
+        myButtons[yourAnswersToTheQuestions[currentQuestionIndex] - 1].setTextColor(Color.WHITE);
+        correct++;
+        correctAnswers.setText("correct answers: " + correct);
+    }
 
+    @SuppressLint("SetTextI18n")
+    public void answerWasFalse(int friendsAnswer){
+        Toast.makeText(Quiz.this , "False!" , Toast.LENGTH_SHORT).show();
+        myButtons[friendsAnswer - 1].setBackgroundColor(Color.rgb(177,0,0));
+        myButtons[friendsAnswer - 1].setTextColor(Color.WHITE);
+        myButtons[yourAnswersToTheQuestions[currentQuestionIndex] - 1].setBackgroundColor(Color.rgb(0,95,0));
+        myButtons[yourAnswersToTheQuestions[currentQuestionIndex] - 1].setTextColor(Color.WHITE);
+        wrong++;
+        wrongAnswers.setText("wrong answers: " + wrong);
+    }
+    public void gameOver(Bundle bundle){
+        Intent intent = new Intent(Quiz.this , Results.class);
+        intent.putExtra("bundle" , bundle);
+        intent.putExtra("correctAnswers", ""+correct);
+        startActivity(intent);
+        finish();
+    }
 }

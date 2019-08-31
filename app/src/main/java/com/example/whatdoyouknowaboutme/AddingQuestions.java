@@ -105,10 +105,10 @@ public class AddingQuestions extends AppCompatActivity {
         answer3.setText(q.getAnswer3());
         answer4.setText(q.getAnswer4());
 
-        answer1.setTextColor(Color.BLACK);
-        answer2.setTextColor(Color.BLACK);
-        answer3.setTextColor(Color.BLACK);
-        answer4.setTextColor(Color.BLACK);
+        answer1.setTextColor(Color.rgb(53,105,150));
+        answer2.setTextColor(Color.rgb(53,105,150));
+        answer3.setTextColor(Color.rgb(53,105,150));
+        answer4.setTextColor(Color.rgb(53,105,150));
 
         answer1.setBackgroundColor(Color.WHITE);
         answer2.setBackgroundColor(Color.WHITE);
@@ -121,14 +121,12 @@ public class AddingQuestions extends AppCompatActivity {
         questions[currentQuestionIndex].setNumberOfTheCorrectAnswer(correctAnswer);// set the correct answer
         for (int i = 0; i < 4; i++){
             if (correctAnswer - 1 == i){
-//                myButtons[i].setBackgroundColor(R.color.green);
-//                myButtons[i].setTextColor(R.color.white);
-                myButtons[i].setBackgroundColor(Color.BLACK);
+                myButtons[i].setBackgroundColor(Color.rgb(53,105,150));
                 myButtons[i].setTextColor(Color.WHITE);
 
             }else{
                 myButtons[i].setBackgroundColor(Color.WHITE);
-                myButtons[i].setTextColor(Color.BLACK);
+                myButtons[i].setTextColor(Color.rgb(53,105,150));
             }
         }
         Log.d("PRESS", "correct answer for Q#" + (currentQuestionIndex + 1) + " : " + questions[currentQuestionIndex].getNumberOfTheCorrectAnswer());
