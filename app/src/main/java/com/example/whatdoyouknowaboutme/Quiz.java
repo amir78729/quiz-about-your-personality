@@ -21,8 +21,6 @@ public class Quiz extends AppCompatActivity {
     private Button answer4;
     private Button[] myButtons;
     private Button nextQuestion;
-//    private Questions[] questions = QuestionBank.getQuestionsForYou();
-//    private String[]    questionTitles = QuestionBank.getQuestionsForFriends(getIntent().getStringExtra("yourName"));
     private Questions[] questions;
     private String[] questionTitles;
     private int[] yourAnswersToTheQuestions;
@@ -52,10 +50,11 @@ public class Quiz extends AppCompatActivity {
 
         questions = QuestionBank.getQuestionsForYou();
         questionTitles = QuestionBank.getQuestionsForFriends(getIntent().getStringExtra("yourName"));
-        yourAnswersToTheQuestions = getIntent().getIntArrayExtra("correctAnswers");
 
         final String friendsName = getIntent().getStringExtra("friendsName");
         final String yourName = getIntent().getStringExtra("yourName");
+        yourAnswersToTheQuestions = UsersBank.getAUserAnswers(yourName);
+
         String showFriendsName = "Dear " + friendsName + ",";
         name.setText(showFriendsName);
         showQuestion(currentQuestionIndex);
@@ -91,11 +90,10 @@ public class Quiz extends AppCompatActivity {
                     next();
                 else {// game is over
                     Intent intent = new Intent(Quiz.this , Results.class);
-//                    intent.putExtra("yourName" ,yourName);
-//                    intent.putExtra("friendsName" ,friendsName);
                     intent.putExtra("bundle" , bundle);
                     intent.putExtra("correctAnswers", ""+correct);
                     startActivity(intent);
+                    finish();
                 }
             }
         });

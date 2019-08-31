@@ -90,6 +90,7 @@ public class AddingQuestions extends AppCompatActivity {
                     Log.d("PRESS", "user added to the user bank");
 
                     startActivity(intent);
+                    finish();
                 }
             }
         });

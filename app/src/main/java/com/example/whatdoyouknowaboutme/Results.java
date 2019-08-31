@@ -24,6 +24,7 @@ public class Results extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Results.this , MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -32,10 +33,10 @@ public class Results extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Results.this , YourFriendsPage.class);
-                Bundle bundle = getIntent().getExtras();
-                assert bundle != null;
-                intent.putExtra("yourName", bundle.getString("yourName"));
-                intent.putExtra("correctAnswers", bundle.getIntArray("correctAnswers"));
+                String name = getIntent().getStringExtra("yourName");
+
+                intent.putExtra("yourName", name);
+//                intent.putExtra("correctAnswers", bundle.getIntArray("correctAnswers"));
                 startActivity(intent);
             }
         });

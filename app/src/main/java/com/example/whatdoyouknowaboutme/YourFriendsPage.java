@@ -34,6 +34,7 @@ public class YourFriendsPage extends AppCompatActivity {
                     intent.putExtra("correctAnswers", UsersBank.getAUserAnswers(getIntent().getStringExtra("yourName")));
 
                     startActivity(intent);
+                    finish();
                 }else  {
                     Toast.makeText(YourFriendsPage.this, "Please enter your friend's name!",Toast.LENGTH_SHORT).show();
                 }
